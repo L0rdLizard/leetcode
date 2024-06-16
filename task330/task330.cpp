@@ -5,12 +5,17 @@
 
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    vector<int> factor(int n) {
+    vector<int> factor(int n)
+    {
         vector<int> del;
-        for (int i = 2; i <= sqrt(n); i++) {
-            if (n % i == 0) {
+        del.push_back(1);
+        for (int i = 2; i <= sqrt(n); i++)
+        {
+            if (n % i == 0)
+            {
                 del.push_back(i);
                 del.push_back(n / i);
             }
@@ -18,11 +23,14 @@ public:
         return del;
     }
 
-    int minPatches(vector<int>& nums, int n) {
+    int minPatches(vector<int> &nums, int n)
+    {
         int res = 0;
         vector<int> del = factor(n);
-        for (int i = 0; i < del.size(); i++) {
-            if (find(nums.begin(), nums.end(), del[i]) == nums.end()) {
+        for (int i = 0; i < del.size(); i++)
+        {
+            if (find(nums.begin(), nums.end(), del[i]) == nums.end())
+            {
                 nums.push_back(del[i]);
                 res++;
             }
@@ -31,7 +39,6 @@ public:
     }
 };
 
-
 int main(int argc, char const *argv[])
 {
     vector<int> del;
@@ -39,10 +46,11 @@ int main(int argc, char const *argv[])
     del.push_back(2);
     del.push_back(31);
     del.push_back(33);
-    vector<int> fact = Solution().factor(2147483647);
-    for(int i = 0; i < fact.size(); i++){
+    vector<int> fact = Solution().factor(20);
+    for (int i = 0; i < fact.size(); i++)
+    {
         cout << fact[i] << " ";
     }
-    cout << Solution().minPatches(del, 2147483647) << endl;
+    cout << endl << Solution().minPatches(del, 20) << endl;
     return 0;
 }
