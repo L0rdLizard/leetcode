@@ -1,56 +1,35 @@
 #include <vector>
 #include <iostream>
-#include <cmath>
-#include <algorithm>
-
-using namespace std;
-
-class Solution
-{
+class Solution {
 public:
-    vector<int> factor(int n)
-    {
-        vector<int> del;
-        del.push_back(1);
-        for (int i = 2; i <= sqrt(n); i++)
-        {
-            if (n % i == 0)
-            {
-                del.push_back(i);
-                del.push_back(n / i);
-            }
+    int minPatches(std::vector<int>& nums, int n) {
+        int result = 0;
+        long long sum = 0;
+        nums.push_back(n);
+        if(nums[0] != 1){
+            nums.insert(nums.begin(), 1);
+            result++;
         }
-        return del;
-    }
-
-    int minPatches(vector<int> &nums, int n)
-    {
-        int res = 0;
-        vector<int> del = factor(n);
-        for (int i = 0; i < del.size(); i++)
-        {
-            if (find(nums.begin(), nums.end(), del[i]) == nums.end())
-            {
-                nums.push_back(del[i]);
-                res++;
+        
+        for (int i = 0; i < nums.size() - 1; i++) {
+            sum+=nums[i];
+            
+            if ( (nums[i + 1] - sum) > 1 ){
+                result++;
+                nums.insert(nums.begin() + i + 1, sum + 1);
             }
+            if (nums[i + 1] > n) return result;
         }
-        return res;
+        return result;
     }
 };
 
 int main(int argc, char const *argv[])
 {
-    vector<int> del;
-    del.push_back(1);
-    del.push_back(2);
-    del.push_back(31);
-    del.push_back(33);
-    vector<int> fact = Solution().factor(20);
-    for (int i = 0; i < fact.size(); i++)
-    {
-        cout << fact[i] << " ";
-    }
-    cout << endl << Solution().minPatches(del, 20) << endl;
+    Solution s;
+    std::vector<int> nums = {1, 5, 10};
+    int n = 20;
+    int result = s.minPatches(nums, n);
+    std::cout << result << std::endl;
     return 0;
 }
