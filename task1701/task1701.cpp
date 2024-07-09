@@ -13,8 +13,16 @@ public:
         for (int i = 0; i < size; i++)
         {
             cout << customers[i][1] << " " << currentTime << " " << customers[i][0] << endl;
-            result += abs( (customers[i][1] + currentTime - customers[i][0]) / size );
-            cout << "res: " << abs( (customers[i][1] + currentTime - customers[i][0]) / size ) << endl;
+            if (currentTime < customers[i][0])
+            {
+                result += customers[i][1] / size;
+                cout << "res: " << customers[i][1] / size << endl;
+            } else {
+                result += (customers[i][1] + currentTime - customers[i][0]) / size;
+                cout << "res: " << (customers[i][1] + currentTime - customers[i][0]) / size  << endl;
+            }
+            // result += abs( (customers[i][1] + currentTime - customers[i][0]) / size );
+            // cout << "res: " << (customers[i][1] + currentTime - customers[i][0]) / size  << endl;
             currentTime += customers[i][1];
         }
         return result;
@@ -24,7 +32,7 @@ public:
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<vector<int>> customers = {{5,2},{5,4},{10,3},{20,1}};
+    vector<vector<int>> customers = {{2,3},{6,3},{7,5},{11,3},{15,2},{18,1}};
     double result = s.averageWaitingTime(customers);
     cout << result << endl;
     return 0;
