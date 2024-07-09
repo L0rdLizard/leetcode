@@ -7,27 +7,23 @@ class Solution
 public:
     double averageWaitingTime(vector<vector<int>> &customers)
     {
-        double result = 0;
-        int currentTime = customers[0][0];
-        double size = customers.size();
-        for (int i = 0; i < size; i++)
+        double totalWaitTime = 0;
+        int currentTime = 0;
+        
+        for (int i = 0; i < customers.size(); i++)
         {
-            cout << customers[i][1] << " " << currentTime << " " << customers[i][0] << endl;
             if (currentTime < customers[i][0])
             {
-                result += customers[i][1] / size;
-                cout << "res: " << customers[i][1] / size << endl;
-            } else {
-                result += (customers[i][1] + currentTime - customers[i][0]) / size;
-                cout << "res: " << (customers[i][1] + currentTime - customers[i][0]) / size  << endl;
+                currentTime = customers[i][0];
             }
-            // result += abs( (customers[i][1] + currentTime - customers[i][0]) / size );
-            // cout << "res: " << (customers[i][1] + currentTime - customers[i][0]) / size  << endl;
             currentTime += customers[i][1];
+            totalWaitTime += currentTime - customers[i][0];
         }
-        return result;
+        
+        return totalWaitTime / customers.size();
     }
 };
+
 
 int main(int argc, char const *argv[])
 {
