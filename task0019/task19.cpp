@@ -17,23 +17,22 @@ struct ListNode
 class Solution
 {
 public:
-    ListNode *removeNthFromEnd(ListNode *head, int n)
-    {
-        ListNode *dummy = new ListNode(0, head);
-        ListNode *first = head;
-        ListNode *second = dummy;
-        for (int i = 0; i < n; i++)
-        {
-            first = first->next;
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* res = new ListNode(0, head);
+        ListNode* dummy = res;
+
+        for (int i = 0; i < n; i++) {
+            head = head->next;
         }
-        while (first != nullptr)
-        {
-            first = first->next;
-            second = second->next;
-            cout << first->val << " " << second->val << endl;
+
+        while (head != nullptr) {
+            head = head->next;
+            dummy = dummy->next;
         }
-        second->next = second->next->next;
-        return dummy->next;
+
+        dummy->next = dummy->next->next;
+
+        return res->next;        
     }
 };
 
@@ -50,7 +49,7 @@ int main(int argc, char const *argv[])
     s.removeNthFromEnd(head, 2);
     for (ListNode *node = head; node != nullptr; node = node->next)
     {
-        // cout << node->val << " ";
+        cout << node->val << " ";
     }
     return 0;
 }
